@@ -5,6 +5,7 @@ CMakeFiles/traffic_simulation.dir/src/Graphics.cpp.o
  /home/brian/workspace/nd213-project4/src/Graphics.cpp
  /home/brian/workspace/nd213-project4/src/Graphics.h
  /home/brian/workspace/nd213-project4/src/Intersection.h
+ /home/brian/workspace/nd213-project4/src/TrafficLight.h
  /home/brian/workspace/nd213-project4/src/TrafficObject.h
  /usr/local/include/opencv4/opencv2/calib3d.hpp
  /usr/local/include/opencv4/opencv2/core.hpp
@@ -111,12 +112,14 @@ CMakeFiles/traffic_simulation.dir/src/Intersection.cpp.o
  /home/brian/workspace/nd213-project4/src/Intersection.cpp
  /home/brian/workspace/nd213-project4/src/Intersection.h
  /home/brian/workspace/nd213-project4/src/Street.h
+ /home/brian/workspace/nd213-project4/src/TrafficLight.h
  /home/brian/workspace/nd213-project4/src/TrafficObject.h
  /home/brian/workspace/nd213-project4/src/Vehicle.h
 CMakeFiles/traffic_simulation.dir/src/Street.cpp.o
  /home/brian/workspace/nd213-project4/src/Intersection.h
  /home/brian/workspace/nd213-project4/src/Street.cpp
  /home/brian/workspace/nd213-project4/src/Street.h
+ /home/brian/workspace/nd213-project4/src/TrafficLight.h
  /home/brian/workspace/nd213-project4/src/TrafficObject.h
  /home/brian/workspace/nd213-project4/src/Vehicle.h
 CMakeFiles/traffic_simulation.dir/src/TrafficLight.cpp.o
@@ -130,6 +133,7 @@ CMakeFiles/traffic_simulation.dir/src/TrafficSimulator-Final.cpp.o
  /home/brian/workspace/nd213-project4/src/Graphics.h
  /home/brian/workspace/nd213-project4/src/Intersection.h
  /home/brian/workspace/nd213-project4/src/Street.h
+ /home/brian/workspace/nd213-project4/src/TrafficLight.h
  /home/brian/workspace/nd213-project4/src/TrafficObject.h
  /home/brian/workspace/nd213-project4/src/TrafficSimulator-Final.cpp
  /home/brian/workspace/nd213-project4/src/Vehicle.h
@@ -237,6 +241,7 @@ CMakeFiles/traffic_simulation.dir/src/TrafficSimulator-Final.cpp.o
 CMakeFiles/traffic_simulation.dir/src/Vehicle.cpp.o
  /home/brian/workspace/nd213-project4/src/Intersection.h
  /home/brian/workspace/nd213-project4/src/Street.h
+ /home/brian/workspace/nd213-project4/src/TrafficLight.h
  /home/brian/workspace/nd213-project4/src/TrafficObject.h
  /home/brian/workspace/nd213-project4/src/Vehicle.cpp
  /home/brian/workspace/nd213-project4/src/Vehicle.h

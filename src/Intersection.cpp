@@ -121,7 +121,7 @@ void Intersection::simulate() // using threads + promises/futures + exceptions
 void Intersection::processVehicleQueue()
 {
     // print id of the current thread
-    //std::cout << "Intersection #" << _id << "::processVehicleQueue: thread id = " << std::this_thread::get_id() << std::endl;
+    // std::cout << "Intersection #" << _id << "::processVehicleQueue: thread id = " << std::this_thread::get_id() << std::endl;
 
     // continuously process the vehicle queue
     while (true)
@@ -144,12 +144,11 @@ void Intersection::processVehicleQueue()
 bool Intersection::trafficLightIsGreen()
 {
    // please include this part once you have solved the final project tasks
-   /*
+   
    if (_trafficLight.getCurrentPhase() == TrafficLightPhase::green)
        return true;
    else
        return false;
-   */
 
-  return true; // makes traffic light permanently green
+  //return true; // makes traffic light permanently green
 } 

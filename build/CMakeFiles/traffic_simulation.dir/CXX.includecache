@@ -6,41 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/brian/workspace/nd213-project4/src/Intersection.cpp
+/home/brian/workspace/nd213-project4/src/TrafficLight.cpp
 iostream
--
-thread
--
-chrono
--
-future
 -
 random
 -
-Street.h
-/home/brian/workspace/nd213-project4/src/Street.h
-Intersection.h
-/home/brian/workspace/nd213-project4/src/Intersection.h
-Vehicle.h
-/home/brian/workspace/nd213-project4/src/Vehicle.h
-
-/home/brian/workspace/nd213-project4/src/Intersection.h
-vector
--
 future
--
-mutex
--
-memory
 -
 TrafficObject.h
 /home/brian/workspace/nd213-project4/src/TrafficObject.h
 TrafficLight.h
 /home/brian/workspace/nd213-project4/src/TrafficLight.h
-
-/home/brian/workspace/nd213-project4/src/Street.h
-TrafficObject.h
-/home/brian/workspace/nd213-project4/src/TrafficObject.h
 
 /home/brian/workspace/nd213-project4/src/TrafficLight.h
 mutex
@@ -59,8 +35,4 @@ thread
 -
 mutex
 -
-
-/home/brian/workspace/nd213-project4/src/Vehicle.h
-TrafficObject.h
-/home/brian/workspace/nd213-project4/src/TrafficObject.h
 

@@ -49,9 +49,8 @@ void TrafficLight::waitForGreen()
     while(true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
-
-        auto messag = msg_queue->receive();
-        if(messag == TrafficLightPhase::green){
+        TrafficLightPhase phase = msg_queue->receive();
+        if(phase == TrafficLightPhase::green){
             return;
         }
     }
@@ -84,39 +83,19 @@ void TrafficLight::cycleThroughPhases()
     std::mt19937 mt_engine(device());
     std::uniform_int_distribution<> distribution(4, 6);
 
-    std::unique_lock<std::mutex> lck(_mtx);
-    std::cout << "Traffic Light #" << _id
-              << "::Cycle Through Phases: thread id = "
-              << std::this_thread::get_id() << std::endl;
+    auto start = std::chrono::high_resolution_clock::now();
+    auto duration = distribution(mt_engine);
 
-    lck.unlock();
-
-    int cycle_duration = distribution(mt_engine);
-
-    auto last_update = std::chrono::system_clock::now();
-    while(true)
-    {
-        long time_since_last_update =
-            std::chrono::duration_cast<std::chrono::seconds>(
-                std::chrono::system_clock::now() - last_update).count();
-        
+    while(true){
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
-
-        if (time_since_last_update >= cycle_duration){
-            if (_currentPhase == TrafficLightPhase::red){
-                _currentPhase = TrafficLightPhase::green;    
-            } else {
-                _currentPhase = TrafficLightPhase::red;
-            }
-
-        auto msg = _currentPhase;
-        auto is_sent = std::async(std::launch::async, &MessageQueue<TrafficLightPhase>::send,
-                                  msg_queue,
-                                  msg);
-        is_sent.wait();
-
-        last_update = std::chrono::system_clock::now();
-        cycle_duration = distribution(mt_engine);
+        std::chrono::duration<double> elapsed = std::chrono::high_resolution_clock::now() - start;
+        if (elapsed.count() >= duration) {
+            _currentPhase = (_currentPhase == TrafficLightPhase::green? TrafficLightPhase::red : TrafficLightPhase::green);
+            _messages.send(std::move(_currentPhase));
+            // Set mew diratopm fpr mext cycle
+            duration = distribution(mt_engine);
+            // Reset the timer
+            start = std::chrono::high_resolution_clock::now();
         }
     }
 }

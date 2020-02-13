@@ -36,6 +36,7 @@ void MessageQueue<T>::send(T &&msg)
 TrafficLight::TrafficLight()
 {
     _currentPhase = TrafficLightPhase::red;
+    msg_queue =std::make_shared<MessageQueue<TrafficLightPhase>>();
 }
 
 TrafficLight::~TrafficLight(){}
@@ -47,8 +48,10 @@ void TrafficLight::waitForGreen()
     // Once it receives TrafficLightPhase::green, the method returns.
     while(true)
     {
-        auto _currentPhase = msg_queue->receive();
-        if(_currentPhase == TrafficLightPhase::green){
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+        auto messag = msg_queue->receive();
+        if(messag == TrafficLightPhase::green){
             return;
         }
     }
@@ -82,21 +85,38 @@ void TrafficLight::cycleThroughPhases()
     std::uniform_int_distribution<> distribution(4, 6);
 
     std::unique_lock<std::mutex> lck(_mtx);
+    std::cout << "Traffic Light #" << _id
+              << "::Cycle Through Phases: thread id = "
+              << std::this_thread::get_id() << std::endl;
+
+    lck.unlock();
+
+    int cycle_duration = distribution(mt_engine);
+
+    auto last_update = std::chrono::system_clock::now();
     while(true)
     {
+        long time_since_last_update =
+            std::chrono::duration_cast<std::chrono::seconds>(
+                std::chrono::system_clock::now() - last_update).count();
+        
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-        int rand_number = 4 + rand()%(7-4);
+        if (time_since_last_update >= cycle_duration){
+            if (_currentPhase == TrafficLightPhase::red){
+                _currentPhase = TrafficLightPhase::green;    
+            } else {
+                _currentPhase = TrafficLightPhase::red;
+            }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(rand_number*1000));
+        auto msg = _currentPhase;
+        auto is_sent = std::async(std::launch::async, &MessageQueue<TrafficLightPhase>::send,
+                                  msg_queue,
+                                  msg);
+        is_sent.wait();
 
-        if (getCurrentPhase() == TrafficLightPhase::green)
-        {
-            _currentPhase = TrafficLightPhase::red;
-        } else if (getCurrentPhase() == TrafficLightPhase::red) {
-            _currentPhase = TrafficLightPhase::green;
+        last_update = std::chrono::system_clock::now();
+        cycle_duration = distribution(mt_engine);
         }
-
-        _messages.send(std::move(_currentPhase));
     }
 }

@@ -36,10 +36,9 @@ void MessageQueue<T>::send(T &&msg)
 TrafficLight::TrafficLight()
 {
     _currentPhase = TrafficLightPhase::red;
-    msg_queue =std::make_shared<MessageQueue<TrafficLightPhase>>();
 }
 
-TrafficLight::~TrafficLight(){}
+//TrafficLight::~TrafficLight(){}
 
 void TrafficLight::waitForGreen()
 {
@@ -49,7 +48,7 @@ void TrafficLight::waitForGreen()
     while(true)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        TrafficLightPhase phase = msg_queue->receive();
+        TrafficLightPhase phase = msg_queue.receive();
         if(phase == TrafficLightPhase::green){
             return;
         }
@@ -91,8 +90,8 @@ void TrafficLight::cycleThroughPhases()
         std::chrono::duration<double> elapsed = std::chrono::high_resolution_clock::now() - start;
         if (elapsed.count() >= duration) {
             _currentPhase = (_currentPhase == TrafficLightPhase::green? TrafficLightPhase::red : TrafficLightPhase::green);
-            _messages.send(std::move(_currentPhase));
-            // Set mew diratopm fpr mext cycle
+            msg_queue.send(std::move(_currentPhase));
+            // Set new duration for next cycle
             duration = distribution(mt_engine);
             // Reset the timer
             start = std::chrono::high_resolution_clock::now();

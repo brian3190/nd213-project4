@@ -43,7 +43,8 @@ class TrafficLight : public TrafficObject
 public:
     // constructor / destructor
     TrafficLight();
-    ~TrafficLight();
+    //~TrafficLight();
+
     // getters / setters
     TrafficLightPhase getCurrentPhase();
     void setCurrentPhase(const TrafficLightPhase t);
@@ -62,7 +63,7 @@ private:
     std::mutex _mutex;
     MessageQueue<TrafficLightPhase> _messages;
     TrafficLightPhase _currentPhase;
-    std::shared_ptr<MessageQueue<TrafficLightPhase>> msg_queue;
+    MessageQueue<TrafficLightPhase> msg_queue;
 };
 
 #endif

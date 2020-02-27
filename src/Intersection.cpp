@@ -96,7 +96,7 @@ void Intersection::addVehicleToQueue(std::shared_ptr<Vehicle> vehicle)
 
 void Intersection::vehicleHasLeft(std::shared_ptr<Vehicle> vehicle)
 {
-    //std::cout << "Intersection #" << _id << ": Vehicle #" << vehicle->getID() << " has left." << std::endl;
+    std::cout << "Intersection #" << _id << ": Vehicle #" << vehicle->getID() << " has left." << std::endl;
 
     // unblock queue processing
     this->setIsBlocked(false);
